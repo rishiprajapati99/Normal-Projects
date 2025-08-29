@@ -6,9 +6,24 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import { useState } from 'react';
+import * as yup from 'yup';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 export default function PasswordGenerator() {
+  const PasswordSchema = yup.object().shape({
+    passwordLength: yup
+      .number()
+      .min(6, 'minimum 6 characters are required')
+      .max(16, 'maximum 16 characters are allowded')
+      .required('length is required'),
+  });
+  const [passwordLength, setPasswordLength] = useState();
+  const [lowercase, isLowercase] = useState(false);
+  const [uppercase, isUppercase] = useState(false);
+  const [numbers, isNumbers] = useState(false);
+  const [symbols, isSymbols] = useState(false);
+  const generatePassword = (passwordLength: number) => {};
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.mainSafeAreaView]}>
@@ -18,7 +33,7 @@ export default function PasswordGenerator() {
           </View>
           <View
             style={[
-              styles.InputContainer,
+              styles.InputContainerBox,
               // styles.border
             ]}
           >
@@ -33,6 +48,8 @@ export default function PasswordGenerator() {
                 placeholder="Ex. 8"
                 style={{ borderWidth: 2, width: '20%' }}
                 keyboardType={'numeric'}
+                value={passwordLength}
+                onChangeText={() => setPasswordLength}
               />
             </View>
             <View style={[styles.inputContainer]}>
@@ -42,6 +59,9 @@ export default function PasswordGenerator() {
               <BouncyCheckbox
                 style={[styles.radioButton]}
                 fillColor="#2ecc71"
+                onPress={() => {
+                  isLowercase(!lowercase);
+                }}
               />
             </View>
             <View style={[styles.inputContainer]}>
@@ -51,6 +71,7 @@ export default function PasswordGenerator() {
               <BouncyCheckbox
                 style={[styles.radioButton]}
                 fillColor="#2ecc71"
+                onPress={() => isUppercase(!uppercase)}
               />
             </View>
             <View style={[styles.inputContainer]}>
@@ -58,6 +79,7 @@ export default function PasswordGenerator() {
               <BouncyCheckbox
                 style={[styles.radioButton]}
                 fillColor="#2ecc71"
+                onPress={() => isNumbers(!numbers)}
               />
             </View>
             <View style={[styles.inputContainer]}>
@@ -65,6 +87,7 @@ export default function PasswordGenerator() {
               <BouncyCheckbox
                 style={[styles.radioButton]}
                 fillColor="#2ecc71"
+                onPress={() => isSymbols(!symbols)}
               />
             </View>
             <View style={[styles.buttonsContainer]}>
@@ -98,8 +121,8 @@ const styles = StyleSheet.create({
   mainSafeAreaView: { flex: 1, backgroundColor: '#000000c1' },
   mainView: { padding: 5, flex: 1 },
   headingTextContainer: { margin: 6 },
-  headingText: { color: '#fff', fontSize: 40, fontWeight: '500' },
-  InputContainer: { flex: 1 },
+  headingText: { color: '#fff', fontSize: 38, fontWeight: '500' },
+  InputContainerBox: { flex: 1, marginTop: 8 },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
