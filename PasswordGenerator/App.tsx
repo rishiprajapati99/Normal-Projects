@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 export default function PasswordGenerator() {
   return (
@@ -31,33 +32,40 @@ export default function PasswordGenerator() {
               <TextInput
                 placeholder="Ex. 8"
                 style={{ borderWidth: 2, width: '20%' }}
+                keyboardType={'numeric'}
               />
             </View>
             <View style={[styles.inputContainer]}>
               <Text style={[styles.inputHeading]}>
                 Include Lowercase Letters
               </Text>
-              <View
-                style={[styles.radioButton, { borderColor: 'blue' }]}
-              ></View>
+              <BouncyCheckbox
+                style={[styles.radioButton]}
+                fillColor="#2ecc71"
+              />
             </View>
             <View style={[styles.inputContainer]}>
               <Text style={[styles.inputHeading]}>
                 Include Upperrcase Letters
               </Text>
-              <View
-                style={[styles.radioButton, { borderColor: 'yellow' }]}
-              ></View>
+              <BouncyCheckbox
+                style={[styles.radioButton]}
+                fillColor="#2ecc71"
+              />
             </View>
             <View style={[styles.inputContainer]}>
               <Text style={[styles.inputHeading]}>Include Numbers</Text>
-              <View
-                style={[styles.radioButton, { borderColor: '#511d5eff' }]}
-              ></View>
+              <BouncyCheckbox
+                style={[styles.radioButton]}
+                fillColor="#2ecc71"
+              />
             </View>
             <View style={[styles.inputContainer]}>
               <Text style={[styles.inputHeading]}>Include Symbols</Text>
-              <View style={[styles.radioButton, { borderColor: 'red' }]}></View>
+              <BouncyCheckbox
+                style={[styles.radioButton]}
+                fillColor="#2ecc71"
+              />
             </View>
             <View style={[styles.buttonsContainer]}>
               <TouchableOpacity
@@ -99,7 +107,10 @@ const styles = StyleSheet.create({
     margin: 9,
   },
   inputHeading: { color: '#fff', fontSize: 16 },
-  radioButton: { height: 34, width: 34, borderRadius: 17, borderWidth: 2 },
+  radioButton: {
+    height: 34,
+    width: 34,
+  },
   buttonsContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
