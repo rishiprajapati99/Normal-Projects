@@ -1,14 +1,9 @@
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import {
-  View,
-  TextInput,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useState } from 'react';
 import * as yup from 'yup';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import { TextInput } from 'react-native-paper';
 
 export default function PasswordGenerator() {
   const PasswordSchema = yup.object().shape({
@@ -23,7 +18,6 @@ export default function PasswordGenerator() {
   const [uppercase, isUppercase] = useState(false);
   const [numbers, isNumbers] = useState(false);
   const [symbols, isSymbols] = useState(false);
-  const generatePassword = (passwordLength: number) => {};
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.mainSafeAreaView]}>
@@ -46,12 +40,14 @@ export default function PasswordGenerator() {
               <Text style={styles.inputHeading}>Password Length</Text>
               <TextInput
                 placeholder="Ex. 8"
-                style={{ borderWidth: 2, width: '20%' }}
+                label="Length"
+                style={{ width: '20%' }}
                 keyboardType={'numeric'}
                 value={passwordLength}
                 onChangeText={() => setPasswordLength}
               />
             </View>
+            <Text>{passwordLength}</Text>
             <View style={[styles.inputContainer]}>
               <Text style={[styles.inputHeading]}>
                 Include Lowercase Letters
@@ -94,7 +90,12 @@ export default function PasswordGenerator() {
               <TouchableOpacity
                 style={[styles.buttons, { backgroundColor: '#4885caff' }]}
               >
-                <Text style={[styles.inputHeading, styles.buttonHeadings]}>
+                <Text
+                  style={[styles.inputHeading, styles.buttonHeadings]}
+                  onPress={() => {
+                    Alert.alert('Length', passwordLength);
+                  }}
+                >
                   Generate
                 </Text>
               </TouchableOpacity>
