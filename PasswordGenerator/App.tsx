@@ -31,7 +31,7 @@ export default function PasswordGenerator() {
             Alert.alert('Password Length', JSON.stringify(values));
           }}
         >
-          {({ values, setFieldValue, handleSubmit }) => {
+          {({ values, setFieldValue, handleSubmit, errors }) => {
             //setFieldValue function set the current state of the value just like setValue in useState()
             return (
               <View style={[styles.mainView]}>
@@ -61,6 +61,18 @@ export default function PasswordGenerator() {
                         setFieldValue('passwordLength', txt); //setFieldValue requires atLeast 2 arguments . 1)key(the most imp , it must be exactly same as the initialName we have given in the initalValues . this function recognise by this key that  which state has to be updated by this value) 2)value
                       }}
                     />
+                  </View>
+                  <View
+                    style={[
+                      // styles.border,
+                      styles.errorMessageContainer,
+                    ]}
+                  >
+                    {errors.passwordLength && (
+                      <Text style={{ color: 'red' }}>
+                        {errors.passwordLength}
+                      </Text>
+                    )}
                   </View>
                   <View style={[styles.inputContainer]}>
                     <Text style={[styles.inputHeading]}>
@@ -149,7 +161,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    margin: 9,
+    margin: 7,
   },
   inputHeading: { color: '#fff', fontSize: 16 },
   radioButton: {
@@ -170,4 +182,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonHeadings: {},
+  errorMessageContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: 9,
+  },
 });
