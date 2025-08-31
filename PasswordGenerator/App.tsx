@@ -7,6 +7,22 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 
 export default function PasswordGenerator() {
+  const generatePassword = (
+    passwordLength: number,
+    isLowerCase: boolean,
+    isUpperCase: boolean,
+    isNumbers: boolean,
+    isSymbols: boolean,
+  ) => {
+    //the red underLine doesn't cause any issue it is showing because it needs the fixed dataType of the variable(passwordlength) as it is a typeScript file(tsx)
+    let password = '';
+    for (let index = 0; index < passwordLength; index++) {
+      password += String.fromCharCode(
+        Math.floor(Math.random() * (122 - 65 + 1)) + 65,
+      );
+    }
+    return password;
+  };
   return (
     <SafeAreaProvider>
       <SafeAreaView style={[styles.mainSafeAreaView]}>
@@ -28,11 +44,14 @@ export default function PasswordGenerator() {
               .required('Password length is required'),
           })}
           onSubmit={values => {
-            Alert.alert('Password Length', JSON.stringify(values));
-          }}
-          onReset={() => {
-            // Formik doesn't pass values to the reset that's why here only an empty (without arguments) callBack function is called.
-            Alert.alert('Form is Reset');
+            let Generatedpassword = generatePassword(
+              Number(values.passwordLength),
+              values.isLowerCase,
+              values.isUpperCase,
+              values.isNumbers,
+              values.isSymbols,
+            );
+            Alert.alert('Password', Generatedpassword);
           }}
         >
           {({ values, setFieldValue, handleSubmit, errors, handleReset }) => {
@@ -83,6 +102,7 @@ export default function PasswordGenerator() {
                       Include Lowercase Letters
                     </Text>
                     <BouncyCheckbox
+                      size={29}
                       isChecked={values.isLowerCase}
                       style={[styles.radioButton]}
                       fillColor="#2ecc71"
@@ -97,6 +117,7 @@ export default function PasswordGenerator() {
                       Include Upperrcase Letters
                     </Text>
                     <BouncyCheckbox
+                      size={29}
                       isChecked={values.isUpperCase}
                       style={[styles.radioButton]}
                       fillColor="#2ecc71"
@@ -107,7 +128,8 @@ export default function PasswordGenerator() {
                   <View style={[styles.inputContainer]}>
                     <Text style={[styles.inputHeading]}>Include Numbers</Text>
                     <BouncyCheckbox
-                      isChecked={values.isNumbers}
+                      size={29}
+                      isChecked={values.isNumbers} //it takes values as boolean means true or false . as setFieldValue reset the values.isNumbers = false it gets updateds here so here it becomes false which reset the checckedButton from the UI
                       style={[styles.radioButton]}
                       fillColor="#2ecc71"
                       onPress={txt => setFieldValue('isNumbers', txt)}
@@ -117,6 +139,7 @@ export default function PasswordGenerator() {
                   <View style={[styles.inputContainer]}>
                     <Text style={[styles.inputHeading]}>Include Symbols</Text>
                     <BouncyCheckbox
+                      size={29}
                       isChecked={values.isSymbols}
                       style={[styles.radioButton]}
                       fillColor="#2ecc71"
@@ -127,7 +150,9 @@ export default function PasswordGenerator() {
                   <View style={[styles.buttonsContainer]}>
                     <TouchableOpacity
                       style={[styles.buttons, { backgroundColor: '#4885caff' }]}
-                      onPress={handleSubmit}
+                      onPress={() => {
+                        handleSubmit();
+                      }}
                     >
                       <Text
                         style={[styles.inputHeading, styles.buttonHeadings]}
@@ -174,6 +199,7 @@ const styles = StyleSheet.create({
   },
   inputHeading: { color: '#fff', fontSize: 16 },
   radioButton: {
+    marginRight: 8,
     height: 34,
     width: 34,
   },
