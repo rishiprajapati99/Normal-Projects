@@ -30,8 +30,12 @@ export default function PasswordGenerator() {
           onSubmit={values => {
             Alert.alert('Password Length', JSON.stringify(values));
           }}
+          onReset={() => {
+            // Formik doesn't pass values to the reset that's why here only an empty (without arguments) callBack function is called.
+            Alert.alert('Form is Reset');
+          }}
         >
-          {({ values, setFieldValue, handleSubmit, errors }) => {
+          {({ values, setFieldValue, handleSubmit, errors, handleReset }) => {
             //setFieldValue function set the current state of the value just like setValue in useState()
             return (
               <View style={[styles.mainView]}>
@@ -79,6 +83,7 @@ export default function PasswordGenerator() {
                       Include Lowercase Letters
                     </Text>
                     <BouncyCheckbox
+                      isChecked={values.isLowerCase}
                       style={[styles.radioButton]}
                       fillColor="#2ecc71"
                       onPress={txt => {
@@ -92,6 +97,7 @@ export default function PasswordGenerator() {
                       Include Upperrcase Letters
                     </Text>
                     <BouncyCheckbox
+                      isChecked={values.isUpperCase}
                       style={[styles.radioButton]}
                       fillColor="#2ecc71"
                       onPress={txt => setFieldValue('isUpperCase', txt)}
@@ -101,6 +107,7 @@ export default function PasswordGenerator() {
                   <View style={[styles.inputContainer]}>
                     <Text style={[styles.inputHeading]}>Include Numbers</Text>
                     <BouncyCheckbox
+                      isChecked={values.isNumbers}
                       style={[styles.radioButton]}
                       fillColor="#2ecc71"
                       onPress={txt => setFieldValue('isNumbers', txt)}
@@ -110,6 +117,7 @@ export default function PasswordGenerator() {
                   <View style={[styles.inputContainer]}>
                     <Text style={[styles.inputHeading]}>Include Symbols</Text>
                     <BouncyCheckbox
+                      isChecked={values.isSymbols}
                       style={[styles.radioButton]}
                       fillColor="#2ecc71"
                       onPress={txt => setFieldValue('isSymbols', txt)}
@@ -129,6 +137,7 @@ export default function PasswordGenerator() {
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={[styles.buttons, { backgroundColor: '#e3ecf1e7' }]}
+                      onPress={handleReset}
                     >
                       <Text
                         style={[styles.inputHeading, styles.buttonHeadings]}
