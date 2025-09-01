@@ -142,7 +142,7 @@ export default function PasswordGenerator() {
                       size={29}
                       isChecked={values.isSymbols}
                       style={[styles.radioButton]}
-                      fillColor="#2ecc71"
+                      fillColor="#2ce278ff"
                       onPress={txt => setFieldValue('isSymbols', txt)}
                     />
                   </View>
