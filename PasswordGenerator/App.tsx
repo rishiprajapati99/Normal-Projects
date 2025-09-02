@@ -149,7 +149,7 @@ export default function PasswordGenerator() {
                   <Text>{values.isSymbols ? 'true' : 'false'}</Text>
                   <View style={[styles.buttonsContainer]}>
                     <TouchableOpacity
-                      style={[styles.buttons, { backgroundColor: '#4885caff' }]}
+                      style={[styles.buttons, { backgroundColor: '#164b86ff' }]}
                       onPress={() => {
                         handleSubmit();
                       }}
