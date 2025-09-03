@@ -55,7 +55,7 @@ export default function PasswordGenerator() {
           }}
         >
           {({ values, setFieldValue, handleSubmit, errors, handleReset }) => {
-            //setFieldValue function set the current state of the value just like setValue in useState()
+            //setFieldValue function set the current state of the value just like setValue in useState() . here errors captures the yup validations and display them where we want. and handleReset handle to reset the form value in the UI base.
             return (
               <View style={[styles.mainView]}>
                 <View style={[styles.headingTextContainer]}>
