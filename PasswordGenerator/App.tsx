@@ -14,7 +14,7 @@ export default function PasswordGenerator() {
     isNumbers: boolean,
     isSymbols: boolean,
   ) => {
-    //the red underLine doesn't cause any issue it is showing because it needs the fixed dataType of the variable(passwordlength) as it is a typeScript file(tsx)
+    //the red underLine doesn't cause any issue it is showing because it needs the fixed dataType of the variable(passwordength) as it is a typeScript file(tsx)
     let password = '';
     for (let index = 0; index < passwordLength; index++) {
       password += String.fromCharCode(
