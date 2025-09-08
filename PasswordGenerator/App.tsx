@@ -99,7 +99,7 @@ export default function PasswordGenerator() {
                   </View>
                   <View style={[styles.inputContainer]}>
                     <Text style={[styles.inputHeading]}>
-                      Include Lowercase Letters
+                      Only Lowercase Letters
                     </Text>
                     <BouncyCheckbox
                       size={29}
@@ -114,7 +114,7 @@ export default function PasswordGenerator() {
                   <Text>{values.isLowerCase ? 'true' : 'false'}</Text>
                   <View style={[styles.inputContainer]}>
                     <Text style={[styles.inputHeading]}>
-                      Include Upperrcase Letters
+                      Only Upperrcase Letters
                     </Text>
                     <BouncyCheckbox
                       size={29}
