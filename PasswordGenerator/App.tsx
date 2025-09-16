@@ -9,19 +9,44 @@ import { Formik } from 'formik';
 export default function PasswordGenerator() {
   const generatePassword = (
     passwordLength: number,
-    isLowerCase: boolean,
-    isUpperCase: boolean,
+    isOnlyLowerCase: boolean,
+    isOnlyUpperCase: boolean,
     isNumbers: boolean,
     isSymbols: boolean,
   ) => {
     //the red underLine doesn't cause any issue it is showing because it needs the fixed dataType of the variable(passwordength) as it is a typeScript file(tsx)
-    let password = '';
+    let password = '',
+      temp;
+    let startNumber = isNumbers ? 48 : 65;
     for (let index = 0; index < passwordLength; index++) {
-      password += String.fromCharCode(
-        Math.floor(Math.random() * (122 - 65 + 1)) + 65,
+      temp = String.fromCharCode(
+        Math.floor(Math.random() * (122 - startNumber + 1)) + startNumber,
       );
+      if (!isSymbols) {
+        if (
+          temp == '[' ||
+          temp == ']' ||
+          temp == '\\' ||
+          temp == '^' ||
+          temp == '_' ||
+          temp == '`' ||
+          temp == ':' ||
+          temp == ';' ||
+          temp == '<' ||
+          temp == '>' ||
+          temp == '=' ||
+          temp == '?' ||
+          temp == '@'
+        ) {
+        } else {
+          password += temp;
+        }
+      } else {
+        password += temp;
+      }
     }
-    if (isLowerCase) password = password.toLowerCase();
+    if (isOnlyLowerCase) password = password.toLowerCase();
+    else if (isOnlyUpperCase) password = password.toUpperCase();
     return password;
   };
   return (
@@ -31,9 +56,9 @@ export default function PasswordGenerator() {
           initialValues={{
             //all the initial state of the values needs to be written inside initialvalues just like in the useState()
             passwordLength: '',
-            isLowerCase: false,
-            isUpperCase: false,
-            isNumbers: false,
+            isOnlyLowerCase: false,
+            isOnlyUpperCase: false,
+            isOnlyNumbers: false,
             isSymbols: false,
           }}
           validationSchema={yup.object({
@@ -47,9 +72,9 @@ export default function PasswordGenerator() {
           onSubmit={values => {
             let Generatedpassword = generatePassword(
               Number(values.passwordLength),
-              values.isLowerCase,
-              values.isUpperCase,
-              values.isNumbers,
+              values.isOnlyLowerCase,
+              values.isOnlyUpperCase,
+              values.isOnlyNumbers,
               values.isSymbols,
             );
             Alert.alert('Password', Generatedpassword);
@@ -104,39 +129,39 @@ export default function PasswordGenerator() {
                     </Text>
                     <BouncyCheckbox
                       size={29}
-                      isChecked={values.isLowerCase}
+                      isChecked={values.isOnlyLowerCase}
                       style={[styles.radioButton]}
                       fillColor="#2ecc71"
                       onPress={txt => {
-                        setFieldValue('isLowerCase', txt);
+                        setFieldValue('isOnlyLowerCase', txt);
                       }}
                     />
                   </View>
-                  <Text>{values.isLowerCase ? 'true' : 'false'}</Text>
+                  <Text>{values.isOnlyLowerCase ? 'true' : 'false'}</Text>
                   <View style={[styles.inputContainer]}>
                     <Text style={[styles.inputHeading]}>
                       Only Upperrcase Letters
                     </Text>
                     <BouncyCheckbox
                       size={29}
-                      isChecked={values.isUpperCase}
+                      isChecked={values.isOnlyUpperCase}
                       style={[styles.radioButton]}
                       fillColor="#2ecc71"
-                      onPress={txt => setFieldValue('isUpperCase', txt)}
+                      onPress={txt => setFieldValue('isOnlyUpperCase', txt)}
                     />
                   </View>
-                  <Text>{values.isUpperCase ? 'true' : 'false'}</Text>
+                  <Text>{values.isOnlyUpperCase ? 'true' : 'false'}</Text>
                   <View style={[styles.inputContainer]}>
                     <Text style={[styles.inputHeading]}>Include Numbers</Text>
                     <BouncyCheckbox
                       size={29}
-                      isChecked={values.isNumbers} //it takes values as boolean means true or false . as setFieldValue reset the values.isNumbers = false it gets updateds here so here it becomes false which reset the checckedButton from the UI
+                      isChecked={values.isOnlyNumbers} //it takes values as boolean means true or false . as setFieldValue reset the values.isOnlyNumbers = false it gets updateds here so here it becomes false which reset the checckedButton from the UI
                       style={[styles.radioButton]}
                       fillColor="#2ecc71"
-                      onPress={txt => setFieldValue('isNumbers', txt)}
+                      onPress={txt => setFieldValue('isOnlyNumbers', txt)}
                     />
                   </View>
-                  <Text>{values.isNumbers ? 'true' : 'false'}</Text>
+                  <Text>{values.isOnlyNumbers ? 'true' : 'false'}</Text>
                   <View style={[styles.inputContainer]}>
                     <Text style={[styles.inputHeading]}>Include Symbols</Text>
                     <BouncyCheckbox
