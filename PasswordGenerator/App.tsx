@@ -21,6 +21,7 @@ export default function PasswordGenerator() {
         Math.floor(Math.random() * (122 - 65 + 1)) + 65,
       );
     }
+    if (isLowerCase) password = password.toLowerCase();
     return password;
   };
   return (
