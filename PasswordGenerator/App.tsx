@@ -134,10 +134,11 @@ export default function PasswordGenerator() {
                       fillColor="#2ecc71"
                       onPress={txt => {
                         setFieldValue('isOnlyLowerCase', txt);
+                        if (txt) setFieldValue('isOnlyUpperCase', false);
                       }}
                     />
                   </View>
-                  <Text>{values.isOnlyLowerCase ? 'true' : 'false'}</Text>
+
                   <View style={[styles.inputContainer]}>
                     <Text style={[styles.inputHeading]}>
                       Only Upperrcase Letters
@@ -147,10 +148,13 @@ export default function PasswordGenerator() {
                       isChecked={values.isOnlyUpperCase}
                       style={[styles.radioButton]}
                       fillColor="#2ecc71"
-                      onPress={txt => setFieldValue('isOnlyUpperCase', txt)}
+                      onPress={txt => {
+                        setFieldValue('isOnlyUpperCase', txt);
+                        if (txt) setFieldValue('isOnlyLowerCase', false);
+                      }}
                     />
                   </View>
-                  <Text>{values.isOnlyUpperCase ? 'true' : 'false'}</Text>
+
                   <View style={[styles.inputContainer]}>
                     <Text style={[styles.inputHeading]}>Include Numbers</Text>
                     <BouncyCheckbox
@@ -161,7 +165,6 @@ export default function PasswordGenerator() {
                       onPress={txt => setFieldValue('isOnlyNumbers', txt)}
                     />
                   </View>
-                  <Text>{values.isOnlyNumbers ? 'true' : 'false'}</Text>
                   <View style={[styles.inputContainer]}>
                     <Text style={[styles.inputHeading]}>Include Symbols</Text>
                     <BouncyCheckbox
@@ -172,7 +175,6 @@ export default function PasswordGenerator() {
                       onPress={txt => setFieldValue('isSymbols', txt)}
                     />
                   </View>
-                  <Text>{values.isSymbols ? 'true' : 'false'}</Text>
                   <View style={[styles.buttonsContainer]}>
                     <TouchableOpacity
                       style={[styles.buttons, { backgroundColor: '#164b86ff' }]}
