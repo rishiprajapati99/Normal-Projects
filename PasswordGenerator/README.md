@@ -1,3 +1,2 @@
 ## 📱 App Demo
-
-![App Demo](./assets/AppDemo.gif)
+(./assets/AppDemo.gif)
