@@ -1,3 +1,3 @@
 ## 📱 App Demo
 
-![Password Generator demo](./assets/demo.gif)
+![Password Generator demo](./assets/AppDemo.gif)
